@@ -23,11 +23,11 @@ public class EstacionDAO {
     // EN: dao/EstacionDAO.java
 
     public int insert(Estacion e) throws SQLException {
-        // ❌ QUITAR 'tipo_servicio' de la consulta
+
         String sql = """
                     INSERT INTO estacion_servicio
-                    (id_empresa, tipo_estacion, provincia, municipio, localidad, codigo_postal, direccion, longitud, latitud, tipo_venta, rem, horario)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)
+                    (id_empresa, tipo_estacion, provincia, municipio, localidad, codigo_postal, direccion, longitud, latitud, tipo_venta, rem, horario, margen)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)
                     ON DUPLICATE KEY UPDATE id_estacion=LAST_INSERT_ID(id_estacion)
                 """;
 
@@ -44,9 +44,7 @@ public class EstacionDAO {
             ps.setString(10, e.getTipoVenta());
             ps.setString(11, e.getRem());
             ps.setString(12, e.getHorario());
-
-            // ❌ QUITAR esta línea (que ahora sería el índice 12)
-            // ps.setString(12, e.getTipoServicio());
+            ps.setString(13, e.getMargen());
 
             ps.executeUpdate();
 
