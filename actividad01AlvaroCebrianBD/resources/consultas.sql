@@ -1,4 +1,3 @@
-
 /**VERIIFCAR REPETIDOS*/
 /*verificar q no haya precios duplicado*/
 SELECT id_estacion, tipo_combustible, COUNT(*) AS num_precios
