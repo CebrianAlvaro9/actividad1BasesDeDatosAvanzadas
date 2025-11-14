@@ -1,44 +1,44 @@
-DROP TABLE IF EXISTS precio;
-DROP TABLE IF EXISTS estacion_servicio;
-DROP TABLE IF EXISTS empresa;
+drop table if exists precio;
+drop table if exists estacion_servicio;
+drop table if exists empresa;
 
 /*
  * empresa
  */
-CREATE TABLE IF NOT EXISTS empresa (
-    id_empresa INT AUTO_INCREMENT PRIMARY KEY,
-    rotulo VARCHAR(100) NOT NULL UNIQUE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+create table if not exists empresa (
+    id_empresa int auto_increment primary key,
+    rotulo varchar(100) not null unique
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
  /* estacion_servicio*/
-CREATE TABLE IF NOT EXISTS estacion_servicio (
-    id_estacion INT AUTO_INCREMENT PRIMARY KEY,
-    id_empresa INT NOT NULL,
-    tipo_estacion ENUM('TERRESTRE', 'MARITIMA') DEFAULT 'TERRESTRE', 
-    provincia VARCHAR(100),
-    municipio VARCHAR(100),
-    localidad VARCHAR(100),
-    codigo_postal VARCHAR(10),
-    direccion VARCHAR(255),
-    longitud DECIMAL(10,6) not null,
-    latitud DECIMAL(10,6) not null, /*evitar nulos porq son claves unicas*/
-    tipo_venta VARCHAR(50),
-    rem VARCHAR(100),
-    horario TEXT,
-    margen VARCHAR(10) null,
+create table if not exists estacion_servicio (
+    id_estacion int auto_increment primary key,
+    id_empresa int not null,
+    tipo_estacion enum('terrestre', 'maritima') default 'terrestre', 
+    provincia varchar(100),
+    municipio varchar(100),
+    localidad varchar(100),
+    codigo_postal varchar(10),
+    direccion varchar(255),
+    longitud decimal(10,6) not null,
+    latitud decimal(10,6) not null, /*evitar nulos porq son claves unicas*/
+    tipo_venta varchar(50),
+    rem varchar(100),
+    horario text,
+    margen varchar(10) null,
     
-    FOREIGN KEY (id_empresa) REFERENCES empresa(id_empresa) ON DELETE CASCADE,
-    UNIQUE KEY unique_estacion_empresa_latlong (id_empresa, latitud, longitud)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    foreign key (id_empresa) references empresa(id_empresa) on delete cascade,
+    unique key unique_estacion_empresa_latlong (id_empresa, latitud, longitud)
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 /*
  * 'precio'
  */
-CREATE TABLE IF NOT EXISTS precio (
-    id_precio INT AUTO_INCREMENT PRIMARY KEY,
-    id_estacion INT NOT NULL,
-    tipo_combustible VARCHAR(100) NOT NULL,
-    precio DECIMAL(7,3) NOT NULL,
-    FOREIGN KEY (id_estacion) REFERENCES estacion_servicio(id_estacion) ON DELETE CASCADE,
-    UNIQUE KEY unique_precio (id_estacion, tipo_combustible)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+create table if not exists precio (
+    id_precio int auto_increment primary key,
+    id_estacion int not null,
+    tipo_combustible varchar(100) not null,
+    precio decimal(7,3) not null,
+    foreign key (id_estacion) references estacion_servicio(id_estacion) on delete cascade,
+    unique key unique_precio (id_estacion, tipo_combustible)
+) engine=innodb default charset=utf8mb4 collate=utf8mb4_unicode_ci;

@@ -14,12 +14,6 @@ public class EstacionDAO {
     public EstacionDAO(Connection conn) {
         this.conn = conn;
     }
-
-    /**
-     * Comprueba si ya existe una estación con la misma combinación de columnas
-     * clave.
-     */
-
     // EN: dao/EstacionDAO.java
 
     public int insert(Estacion e) throws SQLException {

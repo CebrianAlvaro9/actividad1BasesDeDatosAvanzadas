@@ -14,14 +14,6 @@ public class PrecioDAO {
         this.conn = conn;
     }
 
-    /**
-     * Inserta un precio. Si ya existe (por UNIQUE en BD), devuelve false y muestra
-     * mensaje.
-     * 
-     * @param p Precio a insertar
-     * @return true si se insertó correctamente, false si ya existía
-     * @throws Exception
-     */
     public boolean insert(Precio p) throws Exception {
         String sql = "INSERT INTO precio (id_estacion, tipo_combustible, precio) VALUES (?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -33,7 +25,7 @@ public class PrecioDAO {
         } catch (SQLException ex) {
             // Código de violación de UNIQUE en MySQL
             if ("23000".equals(ex.getSQLState())) {
-                System.out.println("⚠️ El precio para esta estación y tipo de combustible ya estaba registrado: "
+                System.out.println("!! El precio para esta estación y tipo de combustible ya estaba registrado: "
                         + p.getIdEstacion() + " - " + p.getTipoCombustible());
                 return false; // ya existía
             }

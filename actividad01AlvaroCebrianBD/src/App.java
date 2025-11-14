@@ -4,7 +4,7 @@ public class App {
 
     public static void main(String[] args) {
 
-        // Rutas de tus CSVs
+        //CSVs
         String csvFile1 = "./resources/preciosEESS_es.csv";
         String csvFile2 = "./resources/embarcacionesPrecios_es.csv";
 

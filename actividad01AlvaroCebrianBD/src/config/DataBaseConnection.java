@@ -8,26 +8,22 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DataBaseConnection {
-
+    // Claves de Conexion a bd esto en algo rela iria en un .ENV
     private static final String URL = "jdbc:mysql://localhost:3306/gasolineras_miteco?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     private static final String USER = "root";
     private static final String PASSWORD = "root123";
 
-    // Flag para ejecutar DDL solo la primera vez
     private static boolean initialized = false;
 
-    /**
-     * Devuelve una conexión a la base de datos.
-     * Ejecuta el DDL la primera vez que se llama.
-     */
+    // Conexion a bd
     public static Connection getConnection() throws SQLException {
         Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
 
         if (!initialized) {
             try {
-                executeDDL("./resources/schema.sql"); // ejecuta tu DDL
+                executeDDL("./resources/schema.sql");
                 initialized = true;
-                System.out.println("✅ Tablas creadas o ya existían");
+                System.out.println("OKEY Tablas creadas");
             } catch (Exception e) {
                 throw new RuntimeException("Error al ejecutar DDL", e);
             }
@@ -49,14 +45,13 @@ public class DataBaseConnection {
             while ((line = br.readLine()) != null) {
                 line = line.trim();
                 if (line.isEmpty() || line.startsWith("--"))
-                    continue; // saltar comentarios
-
+                    continue;
                 sql.append(line).append(" ");
                 if (line.endsWith(";")) {
                     try (PreparedStatement ps = conn.prepareStatement(sql.toString())) {
                         ps.execute();
                     }
-                    sql.setLength(0); // limpiar para la siguiente sentencia
+                    sql.setLength(0);
                 }
             }
         }

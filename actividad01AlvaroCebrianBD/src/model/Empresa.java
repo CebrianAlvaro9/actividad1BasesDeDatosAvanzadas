@@ -2,7 +2,7 @@ package model;
 
 public class Empresa {
     private int id;
-    private String nombre; // opcional, según CSV
+    private String nombre;
     private String rotulo;
 
     // Getters y setters

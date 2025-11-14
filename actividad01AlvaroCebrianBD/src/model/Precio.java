@@ -8,9 +8,6 @@ public class Precio {
     private String tipoCombustible;
     private BigDecimal precio;
 
-    public Precio() {
-    }
-
     public Precio(int idEstacion, String tipoCombustible, BigDecimal precio) {
         this.idEstacion = idEstacion;
         this.tipoCombustible = tipoCombustible;

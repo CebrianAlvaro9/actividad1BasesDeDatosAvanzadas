@@ -37,7 +37,7 @@ public class DataLoaderController {
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             String header = br.readLine();
-            header = header.replace("\uFEFF", ""); // eliminar BOM si existe
+            header = header.replace("\uFEFF", ""); // eliminar BOM esto impedia que se insertaran provincias
             if (header == null) {
                 System.err.println("X CSV vacío");
                 return;
@@ -62,7 +62,6 @@ public class DataLoaderController {
                 try {
                     // Campos base
                     String provincia = getField(f, index, "provincia");
-                    System.out.println(provincia);
                     String municipio = getField(f, index, "municipio");
                     String localidad = getField(f, index, "localidad");
                     String codigoPostal = getField(f, index, "código postal");
@@ -131,7 +130,7 @@ public class DataLoaderController {
 
                     int estacionId = estacionDAO.insert(estacion);
                     if (estacionId == -1 || latitud == null || longitud == null) {
-                        System.out.println("⚠️ Línea " + total + " ignorada: estación duplicada o sin coordenadas");
+                        System.out.println(" Línea " + total + " ignorada: estación duplicada o sin coordenadas!");
                         fail++;
                         continue;
                     }
